@@ -22,12 +22,18 @@ class MainActivity : AppCompatActivity() {
         sManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensor = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sListener = object : SensorEventListener {
-            override fun onSensorChanged(event: SensorEvent?) {
-                TODO("Not yet implemented")
+            override fun onSensorChanged(sEvent: SensorEvent?) {
+                val value = sEvent?.values
+                val xData="X: ${value?.get(0)}"
+                val yData="X: ${value?.get(1)}"
+                val zData="X: ${value?.get(2)}"
+                binding.tvSensorX.text=xData
+                binding.tvSensorY.text=yData
+                binding.tvSensorZ.text=zData
             }
 
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-                TODO("Not yet implemented")
+
             }
         }
         sManager.registerListener(sListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
