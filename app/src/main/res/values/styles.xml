@@ -6,12 +6,17 @@
         <item name="android:textSize">50dp</item>
         <item name="android:textColor">@color/blue</item>
     </style>
+    <style name="TextAppearance.AppCompat.TextStyle2">
+        <item name="android:fontFamily">@font/playfair_bold</item>
+        <item name="android:textSize">50dp</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
 
-    <!--<style name="TextAppearance.AppCompat.LineStyle1">
-        <item name="android:width">30dp</item>
-        <item name="android:height">30dp</item>
-        <item name="android:backgroundTint">@color/red    </item>
-    </style>-->
+    <style name="TextAppearance.AppCompat.TextStyle1.Title">
+        <item name="android:fontFamily">@font/playfair_bold</item>
+        <item name="android:textSize">50dp</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
 
 
 </resources>

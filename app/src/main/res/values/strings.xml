@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Axelerometr</string>
+    <string name="appname">Axelerometr</string>
+    <string name="greet">Hello World!</string>
 </resources>

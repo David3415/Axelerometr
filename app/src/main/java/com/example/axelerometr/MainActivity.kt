@@ -1,14 +1,20 @@
 package com.example.axelerometr
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.widget.Toast
+import android.view.View
+import android.widget.TextView
+
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.axelerometr.constance.Constance
 import com.example.axelerometr.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -45,20 +51,19 @@ class MainActivity : AppCompatActivity() {
                     outGravity
                 )
 
-
                 SensorManager.getOrientation(outGravity, values)
-                val degree = values[2] * RADIAN
-                val rotate = 270 + degree
+                val degree = values[2] * Constance.RADIAN
+                val rotate = 270 + degree*2
 
-                binding.lRotation.rotation = rotate - R_ANGLE
+                binding.lRotation.rotation = rotate - Constance.R_ANGLE
 
-                val color = if ((rotate - R_ANGLE * 3).toInt() == 0) {
+                val color = if ((rotate - Constance.R_ANGLE * 3).toInt() == 0) {
                     Color.GREEN
                 } else {
                     Color.RED
                 }
                 binding.lRotation.setBackgroundColor(color)
-                binding.tvSensor.text = (rotate - R_ANGLE * 3).toString()
+                binding.tvSensor.text = (rotate - Constance.R_ANGLE * 3).toString()
             }
 
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -70,7 +75,14 @@ class MainActivity : AppCompatActivity() {
         sManager.registerListener(sListener, sensorAcc, SensorManager.SENSOR_DELAY_NORMAL)
         sManager.registerListener(sListener, sensorMf, SensorManager.SENSOR_DELAY_NORMAL)
     }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig != null) {
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                Toast.makeText(this@MainActivity, "Land", Toast.LENGTH_LONG).show()
+            else Toast.makeText(this@MainActivity, "Port", Toast.LENGTH_LONG).show()
+        }
+    }
 }
 
-const val RADIAN: Float = 57.2958F
-const val R_ANGLE: Int = 90
