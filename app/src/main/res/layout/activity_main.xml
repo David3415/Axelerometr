@@ -10,12 +10,11 @@
 
     <TextView
         android:id="@+id/tvSensor"
+        style="@style/TextAppearance.AppCompat.TextStyle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="Hello World!"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
