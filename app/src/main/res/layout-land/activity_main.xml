@@ -10,18 +10,27 @@
 
     <TextView
         android:id="@+id/tvSensor"
+        style="@style/TextAppearance.AppCompat.TextStyle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Hello World!"
-        style="@style/TextAppearance.AppCompat.TextStyle1"
+        android:layout_marginTop="100dp"
+        android:text="@string/greet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0" />
-
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        style="@style/TextAppearance.AppCompat.TextStyle1.Title"
+        app:layout_constraintBottom_toTopOf="@+id/tvSensor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="70dp"
@@ -54,5 +63,21 @@
         app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="@+id/linearLayout"></LinearLayout>
+
+    <android.widget.Button
+        android:id="@+id/btnStoreVal"
+        style="@style/TextAppearance.AppCompat.TextStyle1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="90dp"
+        android:background="@drawable/btn_bottom"
+        android:text="@string/btn_bottom"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
