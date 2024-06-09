@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+      //  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED)
         sManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensorAcc = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sensorMf = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (newConfig != null) {
+        /*if (newConfig != null) {
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 degree = values[2] * Constance.RADIAN
                 rotate = 180 + degree
@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                 binding.tvSensor.text = (rotate - Constance.R_ANGLE * 3).toString()
                 Toast.makeText(this@MainActivity, "Land", Toast.LENGTH_LONG).show()
             } else Toast.makeText(this@MainActivity, "Port", Toast.LENGTH_LONG).show()
-        }
+        }*/
     }
 }
 

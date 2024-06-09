@@ -13,21 +13,19 @@
         style="@style/TextAppearance.AppCompat.TextStyle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:text="@string/greet"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintTop_toBottomOf="@+id/app_name" />
+
     <TextView
         android:id="@+id/app_name"
+        style="@style/TextAppearance.AppCompat.TextStyle1.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="@string/app_name"
-        style="@style/TextAppearance.AppCompat.TextStyle1.Title"
-        app:layout_constraintBottom_toTopOf="@+id/tvSensor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,19 +60,21 @@
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"></LinearLayout>
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.53"></LinearLayout>
 
     <android.widget.Button
         android:id="@+id/btnStoreVal"
         style="@style/TextAppearance.AppCompat.TextStyle1"
-        android:layout_width="0dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/btn_bottom"
-        android:text="@string/btn_bottom"
+        android:paddingBottom="5dp"
 
+        android:text="@string/btn_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
