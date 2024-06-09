@@ -2,4 +2,5 @@
     <string name="app_name">Акселерометр</string>
     <string name="appname">Акселерометр</string>
     <string name="greet">Привет!</string>
+    <string name="btn_bottom">Сохранить значение</string>
 </resources>

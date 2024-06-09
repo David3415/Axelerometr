@@ -8,9 +8,9 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
-import android.view.View
-import android.widget.TextView
 
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -27,15 +27,19 @@ class MainActivity : AppCompatActivity() {
     private var accel = FloatArray(3)
     private var maqf = FloatArray(3)
     private var values = FloatArray(3)
-
+    var rotate: Float = 0.0f
+    var degree: Float = 0.0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         sManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensorAcc = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sensorMf = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+
+
         val sListener = object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
                 when (event?.sensor?.type) {
@@ -52,8 +56,8 @@ class MainActivity : AppCompatActivity() {
                 )
 
                 SensorManager.getOrientation(outGravity, values)
-                val degree = values[2] * Constance.RADIAN
-                val rotate = 270 + degree*2
+                degree = values[2] * Constance.RADIAN
+                rotate = 270 + degree
 
                 binding.lRotation.rotation = rotate - Constance.R_ANGLE
 
@@ -68,20 +72,47 @@ class MainActivity : AppCompatActivity() {
 
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
-
             }
-
         }
         sManager.registerListener(sListener, sensorAcc, SensorManager.SENSOR_DELAY_NORMAL)
         sManager.registerListener(sListener, sensorMf, SensorManager.SENSOR_DELAY_NORMAL)
+
+        binding.btnStoreVal?.setOnClickListener {
+            storeValue()
+        }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+       when(item.itemId){R.id.id_oriontation->}
+        return true
+    }
+    private fun storeValue() {
+
+    }
+
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         if (newConfig != null) {
-            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+            if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                degree = values[2] * Constance.RADIAN
+                rotate = 180 + degree
+
+                binding.lRotation.rotation = rotate - Constance.R_ANGLE - 90
+
+                val color = if ((rotate - Constance.R_ANGLE * 3).toInt() == 0) {
+                    Color.GREEN
+                } else {
+                    Color.RED
+                }
+                binding.lRotation.setBackgroundColor(color)
+                binding.tvSensor.text = (rotate - Constance.R_ANGLE * 3).toString()
                 Toast.makeText(this@MainActivity, "Land", Toast.LENGTH_LONG).show()
-            else Toast.makeText(this@MainActivity, "Port", Toast.LENGTH_LONG).show()
+            } else Toast.makeText(this@MainActivity, "Port", Toast.LENGTH_LONG).show()
         }
     }
 }

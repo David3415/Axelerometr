@@ -2,4 +2,6 @@
     <string name="app_name">Axelerometr</string>
     <string name="appname">Axelerometr</string>
     <string name="greet">Hello World!</string>
+    <string name="btn_bottom">Store value</string>
+    <string name="main_menu" translatable="false">Main menu</string>
 </resources>
