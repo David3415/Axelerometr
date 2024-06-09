@@ -1,6 +1,7 @@
 package com.example.axelerometr
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Color
 import android.hardware.Sensor
@@ -14,6 +15,7 @@ import android.widget.Toast
 
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.axelerometr.constance.Constance
 import com.example.axelerometr.databinding.ActivityMainBinding
 
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         sManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensorAcc = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sensorMf = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
@@ -83,13 +86,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu,menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-       when(item.itemId){R.id.id_oriontation->}
+        if (item.itemId == R.id.id_orientation) {
+            when (resources.configuration.orientation) {
+                Configuration.ORIENTATION_PORTRAIT -> setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+                Configuration.ORIENTATION_LANDSCAPE -> setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT )
+                else -> ""
+            }
+        }
         return true
     }
+
     private fun storeValue() {
 
     }

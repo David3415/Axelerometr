@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/id_oriontation"
+        android:id="@+id/id_orientation"
         android:icon="@drawable/ic_screen_rotate_red"
         android:title="@string/main_menu"
         app:showAsAction="always"
