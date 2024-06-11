@@ -3,6 +3,7 @@ package com.example.axelerometr
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -11,6 +12,7 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.axelerometr.constance.Constance
 import com.example.axelerometr.databinding.ActivityMainBinding
+import com.example.axelerometr.db.DbHelper
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -31,17 +34,24 @@ class MainActivity : AppCompatActivity() {
     private var values = FloatArray(3)
     var rotate: Float = 0.0f
     var degree: Float = 0.0f
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        getSupportActionBar()?.setDisplayShowHomeEnabled(true)
+        getSupportActionBar()?.setIcon(R.drawable.ic_settings)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-      //  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED)
         sManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensorAcc = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sensorMf = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 
+        val dbHelper=DbHelper(this)
+        var db: SQLiteDatabase? = null
+        dbHelper.writableDatabase
+        dbHelper.onCreate(db)
 
         val sListener = object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
@@ -71,11 +81,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 binding.lRotation.setBackgroundColor(color)
                 binding.tvSensor.text = (rotate - Constance.R_ANGLE * 3).toString()
+                binding.apply {
+//main.id.l_
+                }
             }
 
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
             }
+
         }
         sManager.registerListener(sListener, sensorAcc, SensorManager.SENSOR_DELAY_NORMAL)
         sManager.registerListener(sListener, sensorMf, SensorManager.SENSOR_DELAY_NORMAL)
@@ -83,6 +97,11 @@ class MainActivity : AppCompatActivity() {
         binding.btnStoreVal?.setOnClickListener {
             storeValue()
         }
+        /*binding.btnApply?.setOnKeyListener{
+           textSizeFun(R.id.tvSlideTitle)
+
+        }*/
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -94,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         if (item.itemId == R.id.id_orientation) {
             when (resources.configuration.orientation) {
                 Configuration.ORIENTATION_PORTRAIT -> setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
-                Configuration.ORIENTATION_LANDSCAPE -> setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT )
+                Configuration.ORIENTATION_LANDSCAPE -> setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 else -> ""
             }
         }
@@ -103,6 +122,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun storeValue() {
 
+    }
+
+
+    fun textSizeFun(view: View) {
+        var textSize = R.id.tvSlideTitle
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
