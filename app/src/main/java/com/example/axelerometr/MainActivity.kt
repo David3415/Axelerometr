@@ -10,6 +10,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         sManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensorAcc = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sensorMf = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
-
+        var oldVal: Float = 0.0f
         val sListener = object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
                 when (event?.sensor?.type) {
@@ -78,25 +79,25 @@ class MainActivity : AppCompatActivity() {
                     Color.RED
                 }
                 binding.lRotation.setBackgroundColor(color)
-                binding.tvSensor.text = (rotate - Constance.R_ANGLE * 3).toString()
-                binding.apply {
-
+                val newVal = rotate - Constance.R_ANGLE * 3
+                if ((oldVal + 1) > newVal || (oldVal - 1) < newVal) {
+                    binding.tvSensor.text = (rotate - Constance.R_ANGLE * 3).toString()
+                    binding.apply {
+                    }
+                    oldVal = rotate - Constance.R_ANGLE * 3
                 }
             }
 
-
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-
             }
-
         }
-
 
         sManager.registerListener(sListener, sensorAcc, SensorManager.SENSOR_DELAY_NORMAL)
         sManager.registerListener(sListener, sensorMf, SensorManager.SENSOR_DELAY_NORMAL)
 
         binding.btnStoreVal?.setOnClickListener {
-            storeValue()
+            dbManager.insertToDb("Показания: ", "${binding.tvSensor.text}")
+            Log.d("MyLog", "${binding.tvSensor.text}")
         }
         /*binding.btnApply?.setOnKeyListener{
            textSizeFun(R.id.tvSlideTitle)
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun() {
+    fun storeValue(view: View) {
 
     }
 
@@ -129,11 +130,6 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
-
-    private fun storeValue() {
-
-    }
-
 
     fun textSizeFun(view: View) {
         var textSize = R.id.tvSlideTitle

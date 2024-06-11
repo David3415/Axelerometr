@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Акселерометр</string>
-    <string name="appname">Акселерометр</string>
+    <string name="main_menu">Главное меню</string>
     <string name="greet">Привет!</string>
     <string name="btn_bottom">Сохранить значение</string>
+    <string name="btn_slide_apply">Применить</string>
 </resources>

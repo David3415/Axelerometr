@@ -7,7 +7,7 @@ object DbCreateTableClass {
     const val COL_NAME_TIME = "time"
 
     const val DB_NAME = "values.db"
-    const val DB_VERSION = 1
+    const val DB_VERSION = 2
 
 
     const val CREATE_TABLE =
