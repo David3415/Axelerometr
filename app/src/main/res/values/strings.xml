@@ -3,5 +3,5 @@
     <string name="greet">Hello World!</string>
     <string name="btn_bottom">Store value</string>
     <string name="main_menu">Main menu</string>
-    <string name="btn_slide_apply" >Apply</string>
+    <string name="btn_slide_apply">Apply</string>
 </resources>

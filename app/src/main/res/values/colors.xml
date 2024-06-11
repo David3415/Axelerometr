@@ -5,6 +5,8 @@
     <color name="blue">#0000ff</color>
     <color name="red">#ff0000</color>
     <color name="green">#00ff00</color>
+    <color name="bg">#404040</color>
+    <color name="bg_of_edit">#8A8A8A</color>
     <color name="slide_color_transparent">#99ED00</color>
 
     <color name="rc_item_bg">#AAAAAA</color>

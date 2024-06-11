@@ -1,6 +1,7 @@
 package com.example.axelerometr
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.database.sqlite.SQLiteDatabase
@@ -95,10 +96,10 @@ class MainActivity : AppCompatActivity() {
         sManager.registerListener(sListener, sensorAcc, SensorManager.SENSOR_DELAY_NORMAL)
         sManager.registerListener(sListener, sensorMf, SensorManager.SENSOR_DELAY_NORMAL)
 
-        binding.btnStoreVal?.setOnClickListener {
-            dbManager.insertToDb("Показания: ", "${binding.tvSensor.text}")
-            Log.d("MyLog", "${binding.tvSensor.text}")
-        }
+     /*   binding.btnStoreVal?.setOnClickListener {
+          // storeValue(it)
+
+        }*/
         /*binding.btnApply?.setOnKeyListener{
            textSizeFun(R.id.tvSlideTitle)
 
@@ -106,13 +107,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun storeValue(view: View) {
+   /*fun storeValue(view: View) {
+        val intent = Intent(this, EditActivity::class.java)
+        startActivity(intent)
 
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()
-        dbManager.openDb()
+       // dbManager.openDb()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
