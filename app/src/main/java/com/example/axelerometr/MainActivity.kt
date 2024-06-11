@@ -21,10 +21,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.axelerometr.constance.Constance
 import com.example.axelerometr.databinding.ActivityMainBinding
 import com.example.axelerometr.db.DbHelper
+import com.example.axelerometr.db.DbManager
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var sManager: SensorManager
+
+    val dbManager = DbManager(this)
 
     private var magnetic = FloatArray(9)
     private var gravity = FloatArray(9)
@@ -47,11 +50,6 @@ class MainActivity : AppCompatActivity() {
         sManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensorAcc = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sensorMf = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
-
-        val dbHelper=DbHelper(this)
-        var db: SQLiteDatabase? = null
-        dbHelper.writableDatabase
-        dbHelper.onCreate(db)
 
         val sListener = object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
@@ -82,15 +80,18 @@ class MainActivity : AppCompatActivity() {
                 binding.lRotation.setBackgroundColor(color)
                 binding.tvSensor.text = (rotate - Constance.R_ANGLE * 3).toString()
                 binding.apply {
-//main.id.l_
+
                 }
             }
+
 
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
             }
 
         }
+
+
         sManager.registerListener(sListener, sensorAcc, SensorManager.SENSOR_DELAY_NORMAL)
         sManager.registerListener(sListener, sensorMf, SensorManager.SENSOR_DELAY_NORMAL)
 
@@ -102,6 +103,15 @@ class MainActivity : AppCompatActivity() {
 
         }*/
 
+    }
+
+    fun() {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dbManager.openDb()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
