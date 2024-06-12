@@ -11,48 +11,74 @@
     <EditText
         android:id="@+id/edTitle"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="@dimen/layout_margin"
         android:layout_marginTop="@dimen/layout_margin"
         android:layout_marginRight="@dimen/layout_margin"
+        android:layout_marginBottom="@dimen/layout_margin"
         android:background="@color/bg_of_edit"
         android:ems="10"
+        android:gravity="left"
+        android:hint="describe dimension"
         android:inputType="text"
         android:paddingLeft="@dimen/padding_rc_item"
-        android:text="Name"
+        android:paddingTop="@dimen/layout_margin"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/edDesc" />
 
     <EditText
         android:id="@+id/edDesc"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/layout_margin"
-        android:layout_marginBottom="@dimen/layout_margin"
+        android:layout_height="45dp"
+        android:layout_marginTop="50dp"
         android:background="@color/bg_of_edit"
         android:ems="10"
-        android:gravity="top|left"
+        android:gravity="center|center_horizontal|left"
+        android:hint="dimension"
         android:inputType="text"
         android:paddingLeft="@dimen/padding_rc_item"
-        android:text="Name"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edTitle"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/edTitle"
-        app:layout_constraintTop_toBottomOf="@+id/edTitle"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnStore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="60dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/edDesc"
-        app:layout_constraintEnd_toEndOf="@+id/edDesc" />
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="100dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edDesc"
+        app:srcCompat="@android:drawable/ic_menu_save" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="100dp"
+        android:clickable="true"
+        app:backgroundTint="@color/red"
+        app:layout_constraintBottom_toBottomOf="@+id/edTitle"
+        app:layout_constraintStart_toStartOf="@+id/edTitle"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/holo_orange_light"
+        app:layout_constraintBottom_toTopOf="@+id/btnStore"
+        app:layout_constraintEnd_toEndOf="@+id/btnStore"
+        app:layout_constraintStart_toStartOf="@+id/btnStore"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity() {
     private var values = FloatArray(3)
     var rotate: Float = 0.0f
     var degree: Float = 0.0f
-
+    var oldVal: Float = 0.0f
+    var newVal: Float = 0.0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         sManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensorAcc = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sensorMf = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
-        var oldVal: Float = 0.0f
+
         val sListener = object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
                 when (event?.sensor?.type) {
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                     Color.RED
                 }
                 binding.lRotation.setBackgroundColor(color)
-                val newVal = rotate - Constance.R_ANGLE * 3
+                newVal = rotate - Constance.R_ANGLE * 3
                 if ((oldVal + 1) > newVal || (oldVal - 1) < newVal) {
                     binding.tvSensor.text = (rotate - Constance.R_ANGLE * 3).toString()
                     binding.apply {
@@ -96,10 +97,10 @@ class MainActivity : AppCompatActivity() {
         sManager.registerListener(sListener, sensorAcc, SensorManager.SENSOR_DELAY_NORMAL)
         sManager.registerListener(sListener, sensorMf, SensorManager.SENSOR_DELAY_NORMAL)
 
-     /*   binding.btnStoreVal?.setOnClickListener {
-          // storeValue(it)
+        binding.btnStoreVal?.setOnClickListener {
+            storeValue()
 
-        }*/
+        }
         /*binding.btnApply?.setOnKeyListener{
            textSizeFun(R.id.tvSlideTitle)
 
@@ -107,15 +108,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-   /*fun storeValue(view: View) {
+    fun storeValue() {
         val intent = Intent(this, EditActivity::class.java)
+        intent.putExtra(Constance.I_VAL_KEY, newVal.toString())
         startActivity(intent)
 
-    }*/
+    }
 
     override fun onResume() {
         super.onResume()
-       // dbManager.openDb()
+        dbManager.openDb()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
