@@ -7,7 +7,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 
-
 class DbManager(context: Context) {           ////Удаление, считывание, добавление в БД
     val dbHelper = MyDbHelper(context)
     var db: SQLiteDatabase? = null
