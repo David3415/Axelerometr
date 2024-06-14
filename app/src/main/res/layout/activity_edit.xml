@@ -9,6 +9,24 @@
     tools:context=".EditActivity">
 
     <EditText
+        android:id="@+id/edDesc"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginTop="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        android:background="@color/bg_of_edit"
+        android:ems="10"
+        android:gravity="center|center_horizontal|left"
+        android:hint="dimension"
+        android:inputType="text"
+        android:paddingLeft="@dimen/padding_rc_item"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <EditText
         android:id="@+id/edTitle"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -29,23 +47,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edDesc" />
-
-    <EditText
-        android:id="@+id/edDesc"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="@dimen/all_layout_margin_top"
-        android:background="@color/bg_of_edit"
-        android:ems="10"
-        android:gravity="center|center_horizontal|left"
-        android:hint="dimension"
-        android:inputType="text"
-        android:paddingLeft="@dimen/padding_rc_item"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/edTitle"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edTitle"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnStore"
@@ -81,4 +82,35 @@
         app:layout_constraintEnd_toEndOf="@+id/btnStore"
         app:layout_constraintStart_toStartOf="@+id/btnStore"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainImageLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginTop="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
