@@ -2,7 +2,7 @@ import android.provider.BaseColumns
 
 object DbCreateTableClass {
     const val TABLE_NAME = "entry"
-    const val COL_NAME_TITLE = "title"
+       const val COL_NAME_TITLE = "title"
     const val COL_NAME_CONTENT = "val"
 
     const val DB_VERSION = 6

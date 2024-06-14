@@ -1,6 +1,7 @@
 package com.example.axelerometr.db
 
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,16 +9,27 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.axelerometr.R
 
-class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) : RecyclerView.Adapter<DbAdapter.MyHolder>() {
-    var listArray = listMain   // listMain - Список из активити
+class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) :
+    RecyclerView.Adapter<DbAdapter.MyHolder>() {
+    var listArray = listMain//// это  ArrayList<ListItem> со всеми строками RV
     var context = contextM
-    class MyHolder(itemView: View,contextV:Context) : RecyclerView.ViewHolder(itemView) {
+
+    ////   MyHolder - это тип шаблона адаптера - <MyAdapter.MyHolder>, т.е. у  MyAdapter тип - MyHolder
+    class MyHolder(itemView: View, contextV: Context) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)////это rc_item
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)////это rc_item
-           // val context = contextV
+        val context = contextV
         fun setData(item: ListItem) {
+
             tvTitle.text = item.title
             tvTime.text = item.desc
+            /*itemView.setOnClickListener {
+                val intent = Intent(context, EditActivity::class.java).apply {
+                    putExtra(MyIntentConstances.I_TITLE_KEY,item.title)
+                    putExtra(MyIntentConstances.I_DESK_KEY,item.desc)
+                                    }
+                context.startActivity(intent)
+            }*/
         }
     }
 
@@ -31,17 +43,20 @@ class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) : RecyclerView
         return listArray.size
     }
 
-    override fun onBindViewHolder(//получаем доступ к textView и позицию в RecyclerView и начинаем заполнять
-        holder: MyHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: MyHolder, position: Int) {
         holder.setData(listArray.get(position))
     }
 
-    ////-------------------------------------------------------------------------------
     fun updateAdapter(listItems: List<ListItem>) {
         listArray.clear()
         listArray.addAll(listItems)
         notifyDataSetChanged()
+    }
+
+    fun removeItem(position: Int,dbManager: DbManager) {
+        dbManager.removeFromDb(listArray[position].id.toString())
+        listArray.removeAt(position)
+        notifyItemRangeChanged(0, listArray.size)
+        notifyItemRemoved(position)
     }
 }
