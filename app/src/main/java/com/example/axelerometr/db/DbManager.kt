@@ -15,10 +15,11 @@ class DbManager(context: Context) {           ////Удаление, считыв
         db = dbHelper.writableDatabase
     }
 
-    fun insertToDb(title: String, content: String) {
+    fun insertToDb(title: String, content: String,uri:String) {
         val values = ContentValues().apply {
             put(DbCreateTableClass.COL_NAME_TITLE, title)
             put(DbCreateTableClass.COL_NAME_CONTENT, content)
+            put(DbCreateTableClass.COL_NAME_URI,uri )
         }
         db?.insert(DbCreateTableClass.TABLE_NAME, null, values)
     }
@@ -49,7 +50,7 @@ class DbManager(context: Context) {           ////Удаление, считыв
 
             var item = ListItem()
             item.title = dataTitle
-            item.desc = dataContent
+            item.value = dataContent
             item.id = dataId
 
             dataList.add(item)

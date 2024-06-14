@@ -54,6 +54,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="100dp"
         android:clickable="true"
+        android:onClick="onClickBtnStore"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edDesc"
         app:srcCompat="@android:drawable/ic_menu_save" />

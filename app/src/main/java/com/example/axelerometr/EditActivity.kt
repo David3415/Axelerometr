@@ -24,8 +24,13 @@ class EditActivity : AppCompatActivity() {
         setContentView(binding.root)
         val i = intent
         binding.edDesc.setText(i.getStringExtra(Constance.I_VAL_KEY))
-        binding.btnStore.setOnClickListener {
-            storeVal(it)
+        getMyIntents()
+    }
+
+    fun getMyIntents() {
+        val i = intent
+        if (i != null) {
+            binding.edTitle.setText(i.getStringExtra(Constance.I_TITLE_KEY))
         }
     }
 
@@ -33,17 +38,15 @@ class EditActivity : AppCompatActivity() {
         val tmp1: TextView = findViewById(R.id.edDesc)
         val tmp: TextView = findViewById(R.id.edTitle)
         val myTitle = tmp.text.toString()
-
         val i = intent
         if (i != null) {
-
             if (i.getStringExtra(Constance.I_VAL_KEY) != null) {
                 val myDesk = tmp1.text.toString()
                 if (myTitle != "" && myDesk != "") {
                     binding.edDesc.setText(i.getStringExtra(Constance.I_VAL_KEY))
                     var temp = i.getStringExtra(Constance.I_VAL_KEY)
                     dbManager.insertToDb(
-                        myTitle, temp.toString()
+                        myTitle, temp.toString(), tempImageUri
                     )
                 }
             }
@@ -85,16 +88,41 @@ class EditActivity : AppCompatActivity() {
         if (resultCode == RESULT_OK && requestCode == Constance.IMAGE_REQUEST_CODE) {
             val imMainImage: ImageView = findViewById(R.id.imMainImage)
             imMainImage.setImageURI(data?.data)
-            tempImageUri = data?.data.toString()
+            tempImageUri = data?.data.toString()//для БД
         } else if (resultCode == RESULT_OK && requestCode == Constance.CAMERA_REQUEST_CODE) {
             val bitmap = data?.extras?.get("data") as Bitmap
             binding.imMainImage.setImageBitmap(bitmap)
+            tempImageUri = bitmap.toString()//для БД
         }
     }
 
     fun onClickCamera(view: View) {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, Constance.CAMERA_REQUEST_CODE)
+
+    }
+
+    fun onClickBtnStore(view: View) {
+        val desc: TextView = findViewById(R.id.edDesc)
+        val title: TextView = findViewById(R.id.edTitle)
+
+        val myTitle = title.text.toString()
+
+        val i = intent
+        if (i != null) {
+
+            if (i.getStringExtra(Constance.I_VAL_KEY) != null) {
+                val myDesk = desc.text.toString()
+                if (myTitle != "" && myDesk != "") {
+                    binding.edDesc.setText(i.getStringExtra(Constance.I_VAL_KEY))
+                    var temp = i.getStringExtra(Constance.I_VAL_KEY)
+                    dbManager.insertToDb(
+                        myTitle, temp.toString(), tempImageUri
+                    )
+                }
+            }
+        }
+        finish()
 
     }
 }

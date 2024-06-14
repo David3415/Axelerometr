@@ -1,6 +1,7 @@
 package com.example.axelerometr
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -14,12 +15,14 @@ class RcActivity : AppCompatActivity() {
     lateinit var bindingRc: ActivityRcBinding
     val dbManager = DbManager(this)
     val dbAdapter = DbAdapter(ArrayList(), this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         bindingRc = ActivityRcBinding.inflate(layoutInflater)
         setContentView(bindingRc.root)
         init()
+
         fillRcAdapter()
     }
 
@@ -35,6 +38,7 @@ class RcActivity : AppCompatActivity() {
         dbAdapter.updateAdapter(list)
     }
 
+
     private fun getSwapMg(): ItemTouchHelper {
         return ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(
@@ -49,6 +53,7 @@ class RcActivity : AppCompatActivity() {
             }
         })
     }
+
 }
 
 
