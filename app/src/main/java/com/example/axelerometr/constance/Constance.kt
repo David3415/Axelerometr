@@ -9,4 +9,6 @@ object Constance {
     const val I_URI_KEY = "uri_key"
     const val I_ID_KEY = "id_key"
 
+    const val IMAGE_REQUEST_CODE = 100
+    const val CAMERA_REQUEST_CODE = 101
 }

@@ -13,7 +13,6 @@
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginLeft="@dimen/layout_margin"
-        android:layout_marginTop="@dimen/layout_margin"
         android:layout_marginRight="@dimen/layout_margin"
         android:background="@color/bg_of_edit"
         android:ems="10"
@@ -24,7 +23,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toBottomOf="@+id/mainImageLayout" />
 
     <EditText
         android:id="@+id/edTitle"
@@ -77,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:onClick="onClickAddImg"
         app:backgroundTint="@android:color/holo_orange_light"
         app:layout_constraintBottom_toTopOf="@+id/btnStore"
         app:layout_constraintEnd_toEndOf="@+id/btnStore"
@@ -88,22 +88,63 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="@dimen/layout_margin"
-        android:layout_marginTop="@dimen/layout_margin"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="@dimen/layout_margin"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22000003">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imMainImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/layout_margin"
+            android:background="@color/bg_of_edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
+
+        <ImageButton
+            android:id="@+id/imEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/design_default_color_secondary"
+            android:onClick="onClickEditImage"
+            app:layout_constraintEnd_toEndOf="@+id/imDelete"
+            app:layout_constraintStart_toStartOf="@+id/imDelete"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+
+        <ImageButton
+            android:id="@+id/imDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/red"
+            android:onClick="onClickDelImage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+
+        <ImageView
+            android:id="@+id/imCamera"
+            android:layout_width="53dp"
+            android:layout_height="50dp"
+            android:background="#FFC107"
+            android:onClick="onClickCamera"
+            app:layout_constraintBottom_toTopOf="@+id/imDelete"
+            app:layout_constraintEnd_toEndOf="@+id/imDelete"
+            app:layout_constraintStart_toStartOf="@+id/imDelete"
+            app:layout_constraintTop_toBottomOf="@+id/imEdit"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
