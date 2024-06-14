@@ -24,12 +24,19 @@ class DbManager(context: Context) {           ////Удаление, считыв
         db?.insert(DbCreateTableClass.TABLE_NAME, null, values)
     }
 
+    fun removeFromDb(id: String) {
+        var sel = BaseColumns._ID+"=$id"
+        db?.delete(DbCreateTableClass.TABLE_NAME, sel, null)
+    }
 
+
+    @SuppressLint("Range")
     fun readDbData(): ArrayList<ListItem> {
         openDb()
         val dataList = ArrayList<ListItem>()//лист из базы
 
-        val cursor = db?.query(DbCreateTableClass.TABLE_NAME, null, null,
+        val cursor = db?.query(
+            DbCreateTableClass.TABLE_NAME, null, null,
             null, null, null, null
         )
 
@@ -39,11 +46,12 @@ class DbManager(context: Context) {           ////Удаление, считыв
                 cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_TITLE))
             val dataContent =
                 cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_CONTENT))
-
+            val dataId = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
 
             var item = ListItem()
             item.title = dataTitle
             item.desc = dataContent
+            item.id = dataId
 
             dataList.add(item)
         }
@@ -52,6 +60,6 @@ class DbManager(context: Context) {           ////Удаление, считыв
     }
 
     fun closeDB() {
-
+        dbHelper.close()
     }
 }

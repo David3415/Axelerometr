@@ -8,13 +8,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.axelerometr.R
 
-class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) : RecyclerView.Adapter<DbAdapter.MyHolder>() {
+class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) :
+    RecyclerView.Adapter<DbAdapter.MyHolder>() {
     var listArray = listMain   // listMain - Список из активити
     var context = contextM
-    class MyHolder(itemView: View,contextV:Context) : RecyclerView.ViewHolder(itemView) {
+
+    class MyHolder(itemView: View, contextV: Context) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)////это rc_item
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)////это rc_item
-           // val context = contextV
+
+        // val context = contextV
         fun setData(item: ListItem) {
             tvTitle.text = item.title
             tvTime.text = item.desc
@@ -44,4 +47,12 @@ class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) : RecyclerView
         listArray.addAll(listItems)
         notifyDataSetChanged()
     }
+
+    fun removeItem(position: Int, dbManager: DbManager) {
+        dbManager.removeFromDb(listArray[position].id.toString())
+        listArray.removeAt(position)
+        notifyItemRangeChanged(0, listArray.size)
+        notifyItemRemoved(position)
+    }
+
 }
