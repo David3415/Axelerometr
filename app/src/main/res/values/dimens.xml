@@ -3,6 +3,7 @@
     <dimen name="padding_rc_item">10.dp</dimen>
     <dimen name="font_size_rc_item">20.sp</dimen>
     <dimen name="layout_margin">5.dp</dimen>
+    <dimen name="all_layout_margin_top">50.dp</dimen>
 
     <dimen name="width">200.dp</dimen>
     <dimen name="height">150.dp</dimen>

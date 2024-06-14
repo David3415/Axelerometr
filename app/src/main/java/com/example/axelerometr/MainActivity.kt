@@ -20,9 +20,10 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.axelerometr.constance.Constance
 import com.example.axelerometr.databinding.ActivityMainBinding
-import com.example.axelerometr.db.DbHelper
+import com.example.axelerometr.db.MyDbHelper
 import com.example.axelerometr.db.DbManager
 
 class MainActivity : AppCompatActivity() {
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         sManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val sensorAcc = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val sensorMf = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+
 
         val sListener = object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent?) {
@@ -101,6 +103,10 @@ class MainActivity : AppCompatActivity() {
             storeValue()
 
         }
+        binding.btnDimensions?.setOnClickListener {
+            extractValues()
+
+        }
         /*binding.btnApply?.setOnKeyListener{
            textSizeFun(R.id.tvSlideTitle)
 
@@ -108,11 +114,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun extractValues() {
+        val intentRc = Intent(this, RcActivity::class.java)
+        startActivity(intentRc)
+    }
+
     fun storeValue() {
         val intent = Intent(this, EditActivity::class.java)
         intent.putExtra(Constance.I_VAL_KEY, newVal.toString())
         startActivity(intent)
-
     }
 
     override fun onResume() {

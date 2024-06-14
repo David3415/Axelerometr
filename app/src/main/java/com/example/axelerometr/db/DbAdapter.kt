@@ -1,31 +1,30 @@
 package com.example.axelerometr.db
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.axelerometr.R
 
-class DbAdapter(listMain: ArrayList<String>) : RecyclerView.Adapter<DbAdapter.MyHolder>() {
+class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) : RecyclerView.Adapter<DbAdapter.MyHolder>() {
     var listArray = listMain   // listMain - Список из активити
-
-    class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-        fun setData(title: String) {
-            tvTitle.text = title
+    var context = contextM
+    class MyHolder(itemView: View,contextV:Context) : RecyclerView.ViewHolder(itemView) {
+        val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)////это rc_item
+        val tvTime: TextView = itemView.findViewById(R.id.tvTime)////это rc_item
+           // val context = contextV
+        fun setData(item: ListItem) {
+            tvTitle.text = item.title
+            tvTime.text = item.desc
         }
     }
-
 
     ////Запускается каждый раз при рисовании одного rc_item
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return MyHolder(
-            inflater.inflate(R.layout.rc_item, parent, false)
-        )
+        return MyHolder(inflater.inflate(R.layout.rc_item, parent, false), context)
     }
 
     override fun getItemCount(): Int {
@@ -40,7 +39,7 @@ class DbAdapter(listMain: ArrayList<String>) : RecyclerView.Adapter<DbAdapter.My
     }
 
     ////-------------------------------------------------------------------------------
-    fun updateAdapter(listItems: List<String>) {
+    fun updateAdapter(listItems: List<ListItem>) {
         listArray.clear()
         listArray.addAll(listItems)
         notifyDataSetChanged()

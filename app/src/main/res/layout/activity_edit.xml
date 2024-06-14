@@ -34,7 +34,7 @@
         android:id="@+id/edDesc"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/all_layout_margin_top"
         android:background="@color/bg_of_edit"
         android:ems="10"
         android:gravity="center|center_horizontal|left"

@@ -1,5 +1,6 @@
 package com.example.axelerometr
 
+import android.app.LauncherActivity
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -34,11 +35,12 @@ class EditActivity : AppCompatActivity() {
 
         val i = intent
         if (i != null) {
+
             if (i.getStringExtra(Constance.I_VAL_KEY) != null) {
                 val myDesk = tmp1.text.toString()
                 if (myTitle != "" && myDesk != "") {
-                  binding.edDesc.setText(i.getStringExtra(Constance.I_VAL_KEY))
-                  var temp=i.getStringExtra(Constance.I_VAL_KEY)
+                    binding.edDesc.setText(i.getStringExtra(Constance.I_VAL_KEY))
+                    var temp = i.getStringExtra(Constance.I_VAL_KEY)
                     dbManager.insertToDb(
                         myTitle, temp.toString()
                     )
