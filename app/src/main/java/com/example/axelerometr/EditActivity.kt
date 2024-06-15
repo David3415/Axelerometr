@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,13 +39,15 @@ class EditActivity : AppCompatActivity() {
                     binding.mainImageLayout.visibility = View.VISIBLE
                     binding.btnAddPic.visibility=View.GONE
                     binding.btnStore.visibility=View.GONE
+                    Log.d("MyLog","${i.getStringExtra(Constance.I_URI_KEY)}")
                     binding.imMainImage.setImageURI(Uri.parse(i.getStringExtra(Constance.I_URI_KEY)))
+
                 }
             }
         }
     }
 
-    fun storeVal(view: View) {
+   /* fun storeVal(view: View) {
         val _edDesc: TextView = findViewById(R.id.edVal)
         val _edTitle: TextView = findViewById(R.id.edTitle)
         val myTitle = _edTitle.text.toString()
@@ -62,7 +65,7 @@ class EditActivity : AppCompatActivity() {
             }
         }
         finish()
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()
@@ -126,9 +129,10 @@ class EditActivity : AppCompatActivity() {
                 if (myTitle != "" && myDesk != "") {
                     binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
                     var temp = i.getStringExtra(Constance.I_VAL_KEY)
-                    dbManager.insertToDb(
-                        myTitle, temp.toString(), tempImageUri
-                    )
+                    Log.d("MyLog","$tempImageUri")
+                    dbManager.insertToDb( myTitle, temp.toString(), tempImageUri)
+                    //Log.d("MyLog","${Uri.parse(i.getStringExtra(Constance.I_URI_KEY))}")
+
                 }
             }
         }
