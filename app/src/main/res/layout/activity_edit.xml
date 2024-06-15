@@ -9,7 +9,7 @@
     tools:context=".EditActivity">
 
     <EditText
-        android:id="@+id/edDesc"
+        android:id="@+id/edVal"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginLeft="@dimen/layout_margin"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/edVal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnStore"
@@ -56,7 +56,7 @@
         android:clickable="true"
         android:onClick="onClickBtnStore"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edDesc"
+        app:layout_constraintEnd_toEndOf="@+id/edVal"
         app:srcCompat="@android:drawable/ic_menu_save" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

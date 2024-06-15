@@ -2,6 +2,7 @@ package com.example.axelerometr
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.provider.MediaStore
 import android.os.Bundle
 import android.view.View
@@ -23,30 +24,39 @@ class EditActivity : AppCompatActivity() {
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val i = intent
-        binding.edDesc.setText(i.getStringExtra(Constance.I_VAL_KEY))
+        binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
         getMyIntents()
     }
 
     fun getMyIntents() {
         val i = intent
         if (i != null) {
-            binding.edTitle.setText(i.getStringExtra(Constance.I_TITLE_KEY))
+            if (i.getStringExtra(Constance.I_TITLE_KEY) != null) {
+                binding.edTitle.setText(i.getStringExtra(Constance.I_TITLE_KEY))
+                binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
+                if (i.getStringExtra(Constance.I_URI_KEY) != null) {
+                    binding.mainImageLayout.visibility = View.VISIBLE
+                    binding.btnAddPic.visibility=View.GONE
+                    binding.btnStore.visibility=View.GONE
+                    binding.imMainImage.setImageURI(Uri.parse(i.getStringExtra(Constance.I_URI_KEY)))
+                }
+            }
         }
     }
 
     fun storeVal(view: View) {
-        val tmp1: TextView = findViewById(R.id.edDesc)
-        val tmp: TextView = findViewById(R.id.edTitle)
-        val myTitle = tmp.text.toString()
+        val _edDesc: TextView = findViewById(R.id.edVal)
+        val _edTitle: TextView = findViewById(R.id.edTitle)
+        val myTitle = _edTitle.text.toString()
         val i = intent
         if (i != null) {
             if (i.getStringExtra(Constance.I_VAL_KEY) != null) {
-                val myDesk = tmp1.text.toString()
+                val myDesk = _edDesc.text.toString()
                 if (myTitle != "" && myDesk != "") {
-                    binding.edDesc.setText(i.getStringExtra(Constance.I_VAL_KEY))
-                    var temp = i.getStringExtra(Constance.I_VAL_KEY)
+                    binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
+                    var toInsert = i.getStringExtra(Constance.I_VAL_KEY)
                     dbManager.insertToDb(
-                        myTitle, temp.toString(), tempImageUri
+                        myTitle, toInsert.toString(), tempImageUri
                     )
                 }
             }
@@ -103,18 +113,18 @@ class EditActivity : AppCompatActivity() {
     }
 
     fun onClickBtnStore(view: View) {
-        val desc: TextView = findViewById(R.id.edDesc)
-        val title: TextView = findViewById(R.id.edTitle)
+        val _edVal: TextView = findViewById(R.id.edVal)
+        val _edTitle: TextView = findViewById(R.id.edTitle)
 
-        val myTitle = title.text.toString()
+        val myTitle = _edTitle.text.toString()
 
         val i = intent
         if (i != null) {
 
             if (i.getStringExtra(Constance.I_VAL_KEY) != null) {
-                val myDesk = desc.text.toString()
+                val myDesk = _edVal.text.toString()
                 if (myTitle != "" && myDesk != "") {
-                    binding.edDesc.setText(i.getStringExtra(Constance.I_VAL_KEY))
+                    binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
                     var temp = i.getStringExtra(Constance.I_VAL_KEY)
                     dbManager.insertToDb(
                         myTitle, temp.toString(), tempImageUri

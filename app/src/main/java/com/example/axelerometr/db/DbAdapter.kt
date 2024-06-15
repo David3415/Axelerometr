@@ -25,7 +25,7 @@ class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) :
             tvTitle.text = item.title
             tvTime.text = item.value
             itemView.setOnClickListener {
-                var intent = Intent(context, EditActivity::class.java).apply {
+                val intent = Intent(context, EditActivity::class.java).apply {
                     putExtra(Constance.I_TITLE_KEY, item.title)
                     putExtra(Constance.I_VAL_KEY, item.value)
                     putExtra(Constance.I_URI_KEY, item.uri)
