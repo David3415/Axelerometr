@@ -25,6 +25,16 @@ class DbManager(context: Context) {           ////Удаление, считыв
         db?.insert(DbCreateTableClass.TABLE_NAME, null, values)
     }
 
+    fun updateItem(title: String, content: String, uri: String, id: Int) {
+        var selection = BaseColumns._ID + "=-$id"
+        val values = ContentValues().apply {
+            put(DbCreateTableClass.COL_NAME_TITLE, title)
+            put(DbCreateTableClass.COL_NAME_CONTENT, content)
+            put(DbCreateTableClass.COL_NAME_URI, uri)
+        }
+        db?.update(DbCreateTableClass.TABLE_NAME, values, selection, null)
+    }
+
     fun removeFromDb(id: String) {
         var sel = BaseColumns._ID + "=$id"
         db?.delete(DbCreateTableClass.TABLE_NAME, sel, null)

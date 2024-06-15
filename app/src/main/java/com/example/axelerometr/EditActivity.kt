@@ -99,7 +99,7 @@ class EditActivity : AppCompatActivity() {
     fun onClickSave(view: View) {
         val _edVal: TextView = findViewById(R.id.edVal)
         val _edTitle: TextView = findViewById(R.id.edTitle)
-
+        val myVal = _edVal.toString()
         val myTitle = _edTitle.text.toString()
         val i = intent
         if (i != null) {
@@ -107,17 +107,15 @@ class EditActivity : AppCompatActivity() {
                 val myDesk = _edVal.text.toString()
                 if (myTitle != "" && myDesk != "") {
                     if (isEditState) {
-                        dbManager.insertToDb(myTitle, temp.toString(), tempImageUri, id)
+                        dbManager.updateItem(myTitle, myVal, tempImageUri, id)
+                    } else {
+                      /*  binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
+                        var temp = i.getStringExtra(Constance.I_VAL_KEY).toString()*/
+                        dbManager.insertToDb(myTitle, myVal, tempImageUri)
                     }
-                    binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
-                    var temp = i.getStringExtra(Constance.I_VAL_KEY)
-                    dbManager.insertToDb(myTitle, temp.toString(), tempImageUri)
-
-
                 }
             }
         }
         finish()
-
     }
 }
