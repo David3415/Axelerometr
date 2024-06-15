@@ -19,6 +19,8 @@ class EditActivity : AppCompatActivity() {
     lateinit var binding: ActivityEditBinding
     val dbManager = DbManager(this)
     var tempImageUri = "empty"
+    var id = 0
+    var isEditState = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,37 +37,18 @@ class EditActivity : AppCompatActivity() {
             if (i.getStringExtra(Constance.I_TITLE_KEY) != null) {
                 binding.edTitle.setText(i.getStringExtra(Constance.I_TITLE_KEY))
                 binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
+                isEditState = true
+                id = i.getIntExtra(Constance.I_ID_KEY, 0)
                 if (i.getStringExtra(Constance.I_URI_KEY) != null) {
                     binding.mainImageLayout.visibility = View.VISIBLE
-                    binding.btnAddPic.visibility=View.GONE
-                    binding.btnStore.visibility=View.GONE
-                    Log.d("MyLog","${i.getStringExtra(Constance.I_URI_KEY)}")
+                    binding.btnAddPic.visibility = View.GONE
+                    binding.btnSave.visibility = View.GONE
+                    Log.d("MyLog", "${i.getStringExtra(Constance.I_URI_KEY)}")
                     binding.imMainImage.setImageURI(Uri.parse(i.getStringExtra(Constance.I_URI_KEY)))
-
                 }
             }
         }
     }
-
-   /* fun storeVal(view: View) {
-        val _edDesc: TextView = findViewById(R.id.edVal)
-        val _edTitle: TextView = findViewById(R.id.edTitle)
-        val myTitle = _edTitle.text.toString()
-        val i = intent
-        if (i != null) {
-            if (i.getStringExtra(Constance.I_VAL_KEY) != null) {
-                val myDesk = _edDesc.text.toString()
-                if (myTitle != "" && myDesk != "") {
-                    binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
-                    var toInsert = i.getStringExtra(Constance.I_VAL_KEY)
-                    dbManager.insertToDb(
-                        myTitle, toInsert.toString(), tempImageUri
-                    )
-                }
-            }
-        }
-        finish()
-    }*/
 
     override fun onResume() {
         super.onResume()
@@ -115,7 +98,7 @@ class EditActivity : AppCompatActivity() {
 
     }
 
-    fun onClickBtnStore(view: View) {
+    fun onClickSave(view: View) {
         val _edVal: TextView = findViewById(R.id.edVal)
         val _edTitle: TextView = findViewById(R.id.edTitle)
 
@@ -127,16 +110,13 @@ class EditActivity : AppCompatActivity() {
             if (i.getStringExtra(Constance.I_VAL_KEY) != null) {
                 val myDesk = _edVal.text.toString()
                 if (myTitle != "" && myDesk != "") {
-                    binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
-                    var temp = i.getStringExtra(Constance.I_VAL_KEY)
-                    Log.d("MyLog","$tempImageUri")
-                    dbManager.insertToDb( myTitle, temp.toString(), tempImageUri)
-                    //Log.d("MyLog","${Uri.parse(i.getStringExtra(Constance.I_URI_KEY))}")
 
+                    binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))// Это строка с градусами
+                    var temp = i.getStringExtra(Constance.I_VAL_KEY)
+                    dbManager.insertToDb(myTitle, temp.toString(), tempImageUri)
                 }
             }
         }
         finish()
-
     }
 }

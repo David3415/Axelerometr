@@ -23,17 +23,18 @@ class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) :
         val context = contextV
         fun setData(item: ListItem) {
             tvTitle.text = item.title
-            tvTime.text = item.value
+            //  tvTime.text = item.value
             itemView.setOnClickListener {
                 val intent = Intent(context, EditActivity::class.java).apply {
                     putExtra(Constance.I_TITLE_KEY, item.title)
                     putExtra(Constance.I_VAL_KEY, item.value)
                     putExtra(Constance.I_URI_KEY, item.uri)
+                    putExtra(Constance.I_ID_KEY, item.id)
                 }
                 context.startActivity(intent)
             }
-
         }
+
     }
 
     ////Запускается каждый раз при рисовании одного rc_item
