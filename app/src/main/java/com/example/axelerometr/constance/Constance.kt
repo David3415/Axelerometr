@@ -5,8 +5,8 @@ object Constance {
     const val R_ANGLE: Int = 90
 
     const val I_GRADUS_KEY = "gradus_key"
-    const val I_TITLE_KEY = "title_key"
-        const val I_URI_KEY = "uri_key"
+    const val I_COMMENT_KEY = "title_key"
+    const val I_URI_KEY = "uri_key"
     const val I_ID_KEY = "id_key"
 
     const val IMAGE_REQUEST_CODE = 100

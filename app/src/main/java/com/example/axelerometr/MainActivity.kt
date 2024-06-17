@@ -96,13 +96,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnStoreVal?.setOnClickListener {
             sendGradusFun()
-
         }
         binding.btnDimensions?.setOnClickListener {
             extractValues()
-
         }
-
     }
 
     fun extractValues() {

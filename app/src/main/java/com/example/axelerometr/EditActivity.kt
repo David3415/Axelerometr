@@ -34,15 +34,20 @@ class EditActivity : AppCompatActivity() {
     fun getMyIntents() {
         val i = intent
         if (i != null) {
-            if (i.getStringExtra(Constance.I_TITLE_KEY) != null) {
+            if (i.getStringExtra(Constance.I_COMMENT_KEY) != null) {
                 binding.edGradus.setText(i.getStringExtra(Constance.I_GRADUS_KEY))
-                binding.edComment.setText(i.getStringExtra(Constance.I_TITLE_KEY))
+                binding.edComment.setText(i.getStringExtra(Constance.I_COMMENT_KEY))
                 isEditState = true
                 id = i.getIntExtra(Constance.I_ID_KEY, 0)
                 if (i.getStringExtra(Constance.I_URI_KEY) != null) {
                     binding.mainImageLayout.visibility = View.VISIBLE
+                    binding.edGradus.isEnabled = false
+                    binding.edComment.isEnabled = false
                     binding.btnAddPic.visibility = View.GONE
                     binding.btnSave.visibility = View.GONE
+                    binding.imEdit.visibility = View.GONE
+                    binding.imCamera.visibility = View.GONE
+                    binding.imDelete.visibility = View.GONE
                     Log.d("MyLog", "${i.getStringExtra(Constance.I_URI_KEY)}")
                     binding.imMainImage.setImageURI(Uri.parse(i.getStringExtra(Constance.I_URI_KEY)))
                 }
@@ -60,14 +65,14 @@ class EditActivity : AppCompatActivity() {
         dbManager.closeDB()
     }
 
-    fun onClickAddImg(view: View) {
-        binding.mainImageLayout.visibility = View.VISIBLE
-        binding.btnAddPic.visibility = View.GONE
+    fun onClickAddImg(view: View) = with(binding) {
+        mainImageLayout.visibility = View.VISIBLE
+        btnAddPic.visibility = View.GONE
     }
 
-    fun onClickDelImage(view: View) {
-        binding.mainImageLayout.visibility = View.VISIBLE
-        binding.btnAddPic.visibility = View.GONE
+    fun onClickDelImage(view: View) = with(binding) {
+        mainImageLayout.visibility = View.VISIBLE
+        btnAddPic.visibility = View.GONE
     }
 
     fun onClickEditImage(view: View) {
@@ -101,19 +106,27 @@ class EditActivity : AppCompatActivity() {
 
         val i = intent
         if (i != null) {
-
             if (i.getStringExtra(Constance.I_GRADUS_KEY) != null) {
-                // val myDesk = tmp1.text.toString()
                 if (comment != "" && _gradus.toString() != "") {
                     binding.edGradus.setText(i.getStringExtra(Constance.I_GRADUS_KEY))
                     var gradus = i.getStringExtra(Constance.I_GRADUS_KEY)
-                    dbManager.insertToDb(gradus.toString(), comment, tempImageUri)
+                    if (isEditState) {
+                        dbManager.openDb()
+                        dbManager.updateItem(gradus.toString(), comment, tempImageUri, id)
+                    } else {
+                        dbManager.insertToDb(gradus.toString(), comment, tempImageUri)
+                    }
+                    finish()
                 }
             }
         }
-        finish()
     }
-fun onClickEdit(view: View)=with(binding){
-    btnSave.visibility=View.VISIBLE
-}
+
+    fun onClickEdit(view: View) = with(binding) {
+        btnSave.visibility = View.VISIBLE
+        imEdit.visibility = View.VISIBLE
+        imDelete.visibility = View.VISIBLE
+        imCamera.visibility = View.VISIBLE
+        binding.edComment.isEnabled = true
+    }
 }

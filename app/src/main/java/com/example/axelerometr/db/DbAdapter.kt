@@ -19,7 +19,6 @@ class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) :
     class MyHolder(itemView: View, contextV: Context) : RecyclerView.ViewHolder(itemView) {
         val tvGradus: TextView = itemView.findViewById(R.id.tvGradus)////это rc_item
         val tvComment: TextView = itemView.findViewById(R.id.tvComment)////это rc_item
-
         val context = contextV
         fun setData(item: ListItem) {
             tvGradus.text = item.gradus
@@ -27,7 +26,7 @@ class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) :
             itemView.setOnClickListener {
                 val intent = Intent(context, EditActivity::class.java).apply {
                     putExtra(Constance.I_GRADUS_KEY, item.gradus)
-                    putExtra(Constance.I_TITLE_KEY, item.title)
+                    putExtra(Constance.I_COMMENT_KEY, item.title)
                     putExtra(Constance.I_URI_KEY, item.uri)
                     putExtra(Constance.I_ID_KEY, item.id)
                 }

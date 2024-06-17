@@ -22,7 +22,6 @@ class RcActivity : AppCompatActivity() {
         bindingRc = ActivityRcBinding.inflate(layoutInflater)
         setContentView(bindingRc.root)
         init()
-
         fillRcAdapter()
     }
 
@@ -38,7 +37,6 @@ class RcActivity : AppCompatActivity() {
         dbAdapter.updateAdapter(list)
     }
 
-
     private fun getSwapMg(): ItemTouchHelper {
         return ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(
@@ -53,7 +51,6 @@ class RcActivity : AppCompatActivity() {
             }
         })
     }
-
 }
 
 

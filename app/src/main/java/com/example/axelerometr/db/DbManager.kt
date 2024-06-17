@@ -1,12 +1,12 @@
 package com.example.axelerometr.db
 
-
 import DbCreateTableClass
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
+import android.util.Log
 
 class DbManager(context: Context) {           ////Удаление, считывание, добавление в БД
     val dbHelper = MyDbHelper(context)
@@ -16,21 +16,20 @@ class DbManager(context: Context) {           ////Удаление, считыв
         db = dbHelper.writableDatabase
     }
 
-    fun insertToDb(gradus: String, title: String, uri: String) {
+    fun insertToDb(gradus: String, comment: String, uri: String) {
         val values = ContentValues().apply {
             put(DbCreateTableClass.COL_NAME_GRADUS, gradus)
-            put(DbCreateTableClass.COL_NAME_TITLE, title)
+            put(DbCreateTableClass.COL_NAME_COMMENT, comment)
             put(DbCreateTableClass.COL_NAME_URI, uri)
-
         }
         db?.insert(DbCreateTableClass.TABLE_NAME, null, values)
     }
 
-    fun updateItem(gradus: String, title: String, uri: String, id: Int) {
-        var selection = BaseColumns._ID + "=-$id"
+    fun updateItem(gradus: String, comment: String, uri: String, id: Int) {
+        val selection = BaseColumns._ID + "=$id"
         val values = ContentValues().apply {
             put(DbCreateTableClass.COL_NAME_GRADUS, gradus)
-            put(DbCreateTableClass.COL_NAME_TITLE, title)
+            put(DbCreateTableClass.COL_NAME_COMMENT, comment)
             put(DbCreateTableClass.COL_NAME_URI, uri)
             put(DbCreateTableClass.COL_NAME_ID, id)
         }
@@ -54,9 +53,8 @@ class DbManager(context: Context) {           ////Удаление, считыв
         )
 
         while (cursor?.moveToNext()!!) {
-
             var dataTitle =
-                cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_TITLE))
+                cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_COMMENT))
             val dataGradus =
                 cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_GRADUS))
             val dataUri = cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_URI))
