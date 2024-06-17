@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.axelerometr.constance.Constance
 import com.example.axelerometr.databinding.ActivityEditBinding
 import com.example.axelerometr.db.DbManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EditActivity : AppCompatActivity() {
     lateinit var binding: ActivityEditBinding
@@ -31,25 +34,25 @@ class EditActivity : AppCompatActivity() {
         getMyIntents()
     }
 
-    fun getMyIntents() {
+    fun getMyIntents() = with(binding) {
         val i = intent
         if (i != null) {
             if (i.getStringExtra(Constance.I_COMMENT_KEY) != null) {
-                binding.edGradus.setText(i.getStringExtra(Constance.I_GRADUS_KEY))
-                binding.edComment.setText(i.getStringExtra(Constance.I_COMMENT_KEY))
+                edGradus.setText(i.getStringExtra(Constance.I_GRADUS_KEY))
+                edComment.setText(i.getStringExtra(Constance.I_COMMENT_KEY))
                 isEditState = true
                 id = i.getIntExtra(Constance.I_ID_KEY, 0)
                 if (i.getStringExtra(Constance.I_URI_KEY) != null) {
-                    binding.mainImageLayout.visibility = View.VISIBLE
-                    binding.edGradus.isEnabled = false
-                    binding.edComment.isEnabled = false
-                    binding.btnAddPic.visibility = View.GONE
-                    binding.btnSave.visibility = View.GONE
-                    binding.imEdit.visibility = View.GONE
-                    binding.imCamera.visibility = View.GONE
-                    binding.imDelete.visibility = View.GONE
+                    mainImageLayout.visibility = View.VISIBLE
+                    edGradus.isEnabled = false
+                    edComment.isEnabled = false
+                    btnAddPic.visibility = View.GONE
+                    btnSave.visibility = View.GONE
+                    imEdit.visibility = View.GONE
+                    imCamera.visibility = View.GONE
+                    imDelete.visibility = View.GONE
                     Log.d("MyLog", "${i.getStringExtra(Constance.I_URI_KEY)}")
-                    binding.imMainImage.setImageURI(Uri.parse(i.getStringExtra(Constance.I_URI_KEY)))
+                    imMainImage.setImageURI(Uri.parse(i.getStringExtra(Constance.I_URI_KEY)))
                 }
             }
         }
@@ -110,11 +113,13 @@ class EditActivity : AppCompatActivity() {
                 if (comment != "" && _gradus.toString() != "") {
                     binding.edGradus.setText(i.getStringExtra(Constance.I_GRADUS_KEY))
                     var gradus = i.getStringExtra(Constance.I_GRADUS_KEY)
-                    if (isEditState) {
-                        dbManager.openDb()
-                        dbManager.updateItem(gradus.toString(), comment, tempImageUri, id)
-                    } else {
-                        dbManager.insertToDb(gradus.toString(), comment, tempImageUri)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        if (isEditState) {
+                            dbManager.openDb()
+                            dbManager.updateItem(gradus.toString(), comment, tempImageUri, id)
+                        } else {
+                            dbManager.insertToDb(gradus.toString(), comment, tempImageUri)
+                        }
                     }
                     finish()
                 }

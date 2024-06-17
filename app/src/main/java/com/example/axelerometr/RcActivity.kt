@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.axelerometr.databinding.ActivityRcBinding
 import com.example.axelerometr.db.DbAdapter
 import com.example.axelerometr.db.DbManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class RcActivity : AppCompatActivity() {
     lateinit var bindingRc: ActivityRcBinding
@@ -28,13 +32,17 @@ class RcActivity : AppCompatActivity() {
     fun init() {
         bindingRc.rcView2.layoutManager = LinearLayoutManager(this)
         bindingRc.rcView2.adapter = dbAdapter
-        val swapHelper=getSwapMg()
+        val swapHelper = getSwapMg()
         swapHelper.attachToRecyclerView(bindingRc.rcView2)
     }
 
+    private var job: Job? = null
     fun fillRcAdapter() {
-        val list = dbManager.readDbData()
-        dbAdapter.updateAdapter(list)
+        job?.cancel()
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val list = dbManager.readDbData()
+            dbAdapter.updateAdapter(list)
+        }
     }
 
     private fun getSwapMg(): ItemTouchHelper {
@@ -46,6 +54,7 @@ class RcActivity : AppCompatActivity() {
             ): Boolean {
                 return false
             }
+
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 dbAdapter.removeItem(viewHolder.adapterPosition, dbManager)
             }

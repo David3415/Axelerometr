@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.axelerometr.EditActivity
 import com.example.axelerometr.R
 import com.example.axelerometr.constance.Constance
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) :
     RecyclerView.Adapter<DbAdapter.MyHolder>() {
@@ -54,7 +56,7 @@ class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) :
     }
 
     ////-------------------------------------------------------------------------------
-    fun updateAdapter(listItems: List<ListItem>) {
+    fun updateAdapter(listItems: List<ListItem>)  {
         listArray.clear()
         listArray.addAll(listItems)
         notifyDataSetChanged()

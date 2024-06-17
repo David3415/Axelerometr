@@ -7,6 +7,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class DbManager(context: Context) {           ////Удаление, считывание, добавление в БД
     val dbHelper = MyDbHelper(context)
@@ -16,7 +18,7 @@ class DbManager(context: Context) {           ////Удаление, считыв
         db = dbHelper.writableDatabase
     }
 
-    fun insertToDb(gradus: String, comment: String, uri: String) {
+    suspend fun insertToDb(gradus: String, comment: String, uri: String) = withContext(Dispatchers.IO) {
         val values = ContentValues().apply {
             put(DbCreateTableClass.COL_NAME_GRADUS, gradus)
             put(DbCreateTableClass.COL_NAME_COMMENT, comment)
@@ -25,7 +27,7 @@ class DbManager(context: Context) {           ////Удаление, считыв
         db?.insert(DbCreateTableClass.TABLE_NAME, null, values)
     }
 
-    fun updateItem(gradus: String, comment: String, uri: String, id: Int) {
+    suspend fun updateItem(gradus: String, comment: String, uri: String, id: Int) = withContext(Dispatchers.IO) {
         val selection = BaseColumns._ID + "=$id"
         val values = ContentValues().apply {
             put(DbCreateTableClass.COL_NAME_GRADUS, gradus)
@@ -43,7 +45,8 @@ class DbManager(context: Context) {           ////Удаление, считыв
 
 
     @SuppressLint("Range")
-    fun readDbData(): ArrayList<ListItem> {
+     suspend fun readDbData(): ArrayList<ListItem> = withContext(Dispatchers.IO)
+    {
         openDb()
         val dataList = ArrayList<ListItem>()//лист из базы
 
@@ -69,7 +72,7 @@ class DbManager(context: Context) {           ////Удаление, считыв
             dataList.add(item)
         }
         cursor.close()
-        return dataList
+        return@withContext dataList
     }
 
     fun closeDB() {
