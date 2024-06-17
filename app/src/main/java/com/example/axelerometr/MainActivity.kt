@@ -4,14 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
-import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,11 +17,8 @@ import android.widget.Toast
 
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.axelerometr.constance.Constance
 import com.example.axelerometr.databinding.ActivityMainBinding
-import com.example.axelerometr.db.MyDbHelper
 import com.example.axelerometr.db.DbManager
 
 class MainActivity : AppCompatActivity() {
@@ -40,8 +35,8 @@ class MainActivity : AppCompatActivity() {
     private var values = FloatArray(3)
     var rotate: Float = 0.0f
     var degree: Float = 0.0f
-    var oldVal: Float = 0.0f
-    var newVal: Float = 0.0f
+    var gradusInputOld: Float = 0.0f
+    var gradusInput: Float = 0.0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -83,12 +78,12 @@ class MainActivity : AppCompatActivity() {
                     Color.RED
                 }
                 binding.lRotation.setBackgroundColor(color)
-                newVal = rotate - Constance.R_ANGLE * 3
-                if ((oldVal + 1) > newVal || (oldVal - 1) < newVal) {
+                gradusInput = rotate - Constance.R_ANGLE * 3
+                if ((gradusInputOld + 1) > gradusInput || (gradusInputOld - 1) < gradusInput) {
                     binding.tvSensor.text = (rotate - Constance.R_ANGLE * 3).toString()
                     binding.apply {
                     }
-                    oldVal = rotate - Constance.R_ANGLE * 3
+                    gradusInputOld = rotate - Constance.R_ANGLE * 3
                 }
             }
 
@@ -100,17 +95,13 @@ class MainActivity : AppCompatActivity() {
         sManager.registerListener(sListener, sensorMf, SensorManager.SENSOR_DELAY_NORMAL)
 
         binding.btnStoreVal?.setOnClickListener {
-            storeValue()
+            sendGradusFun()
 
         }
         binding.btnDimensions?.setOnClickListener {
             extractValues()
 
         }
-        /*binding.btnApply?.setOnKeyListener{
-           textSizeFun(R.id.tvSlideTitle)
-
-        }*/
 
     }
 
@@ -119,9 +110,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(intentRc)
     }
 
-    fun storeValue() {
+    fun sendGradusFun() {
         val intent = Intent(this, EditActivity::class.java)
-        intent.putExtra(Constance.I_VAL_KEY, newVal.toString())
+        intent.putExtra(Constance.I_GRADUS_KEY, gradusInput.toString())
         startActivity(intent)
     }
 

@@ -16,21 +16,23 @@ class DbManager(context: Context) {           ////Удаление, считыв
         db = dbHelper.writableDatabase
     }
 
-    fun insertToDb(title: String, content: String, uri: String) {
+    fun insertToDb(gradus: String, title: String, uri: String) {
         val values = ContentValues().apply {
+            put(DbCreateTableClass.COL_NAME_GRADUS, gradus)
             put(DbCreateTableClass.COL_NAME_TITLE, title)
-            put(DbCreateTableClass.COL_NAME_CONTENT, content)
             put(DbCreateTableClass.COL_NAME_URI, uri)
+
         }
         db?.insert(DbCreateTableClass.TABLE_NAME, null, values)
     }
 
-    fun updateItem(title: String, content: String, uri: String, id: Int) {
+    fun updateItem(gradus: String, title: String, uri: String, id: Int) {
         var selection = BaseColumns._ID + "=-$id"
         val values = ContentValues().apply {
+            put(DbCreateTableClass.COL_NAME_GRADUS, gradus)
             put(DbCreateTableClass.COL_NAME_TITLE, title)
-            put(DbCreateTableClass.COL_NAME_CONTENT, content)
             put(DbCreateTableClass.COL_NAME_URI, uri)
+            put(DbCreateTableClass.COL_NAME_ID, id)
         }
         db?.update(DbCreateTableClass.TABLE_NAME, values, selection, null)
     }
@@ -55,14 +57,14 @@ class DbManager(context: Context) {           ////Удаление, считыв
 
             var dataTitle =
                 cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_TITLE))
-            val dataContent =
-                cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_CONTENT))
+            val dataGradus =
+                cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_GRADUS))
             val dataUri = cursor.getString(cursor.getColumnIndex(DbCreateTableClass.COL_NAME_URI))
             val dataId = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
 
             var item = ListItem()
+            item.gradus = dataGradus
             item.title = dataTitle
-            item.value = dataContent
             item.uri = dataUri
             item.id = dataId
 

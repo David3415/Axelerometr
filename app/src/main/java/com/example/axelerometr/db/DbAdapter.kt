@@ -17,17 +17,17 @@ class DbAdapter(listMain: ArrayList<ListItem>, contextM: Context) :
     var context = contextM
 
     class MyHolder(itemView: View, contextV: Context) : RecyclerView.ViewHolder(itemView) {
-        val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)////это rc_item
-        val tvTime: TextView = itemView.findViewById(R.id.tvTime)////это rc_item
+        val tvGradus: TextView = itemView.findViewById(R.id.tvGradus)////это rc_item
+        val tvComment: TextView = itemView.findViewById(R.id.tvComment)////это rc_item
 
         val context = contextV
         fun setData(item: ListItem) {
-            tvTitle.text = item.title
-            //  tvTime.text = item.value
+            tvGradus.text = item.gradus
+             tvComment.text = item.title
             itemView.setOnClickListener {
                 val intent = Intent(context, EditActivity::class.java).apply {
+                    putExtra(Constance.I_GRADUS_KEY, item.gradus)
                     putExtra(Constance.I_TITLE_KEY, item.title)
-                    putExtra(Constance.I_VAL_KEY, item.value)
                     putExtra(Constance.I_URI_KEY, item.uri)
                     putExtra(Constance.I_ID_KEY, item.id)
                 }

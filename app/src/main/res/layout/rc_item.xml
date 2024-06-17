@@ -6,12 +6,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvGradus"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
         android:background="@color/rc_item_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/padding_rc_item"
@@ -22,13 +20,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvTime"
+        android:id="@+id/tvComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvGradus"
+        app:layout_constraintEnd_toEndOf="@+id/tvGradus"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="@+id/tvGradus"
+        app:layout_constraintTop_toTopOf="@+id/tvGradus" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -75,7 +75,7 @@
             android:layout_marginBottom="110dp"
             android:background="@drawable/btn_bottom"
 
-            android:onClick="storeValue"
+            android:onClick="sendGradusFun"
             android:paddingBottom="5dp"
             android:text="@string/btn_bottom"
             android:textSize="20dp"

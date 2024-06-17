@@ -27,7 +27,7 @@ class EditActivity : AppCompatActivity() {
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val i = intent
-        binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
+        binding.edGradus.setText(i.getStringExtra(Constance.I_GRADUS_KEY))
         getMyIntents()
     }
 
@@ -35,8 +35,8 @@ class EditActivity : AppCompatActivity() {
         val i = intent
         if (i != null) {
             if (i.getStringExtra(Constance.I_TITLE_KEY) != null) {
-                binding.edTitle.setText(i.getStringExtra(Constance.I_TITLE_KEY))
-                binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))
+                binding.edGradus.setText(i.getStringExtra(Constance.I_GRADUS_KEY))
+                binding.edComment.setText(i.getStringExtra(Constance.I_TITLE_KEY))
                 isEditState = true
                 id = i.getIntExtra(Constance.I_ID_KEY, 0)
                 if (i.getStringExtra(Constance.I_URI_KEY) != null) {
@@ -71,9 +71,6 @@ class EditActivity : AppCompatActivity() {
     }
 
     fun onClickEditImage(view: View) {
-
-        // val intent = Intent(Intent.ACTION_PICK)
-        //val intent = Intent(Intent.ACTION_GET_CONTENT)
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.type = "image/*"
         startActivityForResult(intent, Constance.IMAGE_REQUEST_CODE)
@@ -95,28 +92,28 @@ class EditActivity : AppCompatActivity() {
     fun onClickCamera(view: View) {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, Constance.CAMERA_REQUEST_CODE)
-
     }
 
     fun onClickSave(view: View) {
-        val _edVal: TextView = findViewById(R.id.edVal)
-        val _edTitle: TextView = findViewById(R.id.edTitle)
-
-        val myTitle = _edTitle.text.toString()
+        val _gradus: TextView = findViewById(R.id.edGradus)
+        val _comment: TextView = findViewById(R.id.edComment)
+        val comment = _comment.text.toString()
 
         val i = intent
         if (i != null) {
 
-            if (i.getStringExtra(Constance.I_VAL_KEY) != null) {
-                val myDesk = _edVal.text.toString()
-                if (myTitle != "" && myDesk != "") {
-
-                    binding.edVal.setText(i.getStringExtra(Constance.I_VAL_KEY))// Это строка с градусами
-                    var temp = i.getStringExtra(Constance.I_VAL_KEY)
-                    dbManager.insertToDb(myTitle, temp.toString(), tempImageUri)
+            if (i.getStringExtra(Constance.I_GRADUS_KEY) != null) {
+                // val myDesk = tmp1.text.toString()
+                if (comment != "" && _gradus.toString() != "") {
+                    binding.edGradus.setText(i.getStringExtra(Constance.I_GRADUS_KEY))
+                    var gradus = i.getStringExtra(Constance.I_GRADUS_KEY)
+                    dbManager.insertToDb(gradus.toString(), comment, tempImageUri)
                 }
             }
         }
         finish()
     }
+fun onClickEdit(view: View)=with(binding){
+    btnSave.visibility=View.VISIBLE
+}
 }
